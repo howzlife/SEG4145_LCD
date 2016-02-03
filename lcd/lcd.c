@@ -47,6 +47,11 @@ void initLCD()
 	xSerialxPrint_P(&xSerialPort, PSTR("Initialized LCD Module\n"));
 }
 
+/*----------------------------------------------------------------------------
+ * Description:
+ * 		Displays one message of up to 32 characters
+ *----------------------------------------------------------------------------*/
+
 void displayOneMessage(char* message) {
 
 	// Truncate the string if it's over 32 characters
@@ -58,6 +63,11 @@ void displayOneMessage(char* message) {
 
 	flush();
 }
+
+/*----------------------------------------------------------------------------
+ * Description:
+ * 		Displays first string on top row, second as bottom row, max 16 chars each
+ *----------------------------------------------------------------------------*/
 
 void displayTwoMessages(char* topMessage, char* bottomMessage) {
 
@@ -76,10 +86,21 @@ void displayTwoMessages(char* topMessage, char* bottomMessage) {
 	flush();
 }
 
+/*----------------------------------------------------------------------------
+ * Description:
+ * 		Sends single character to the LCD, for message passing. Useful for
+ * 		various operations and behavior, e.g. print to top row, print to
+ * 		bottom row, clear LCD, etc.
+ *----------------------------------------------------------------------------*/
 static void sendChar(uint8_t hexChar) {
 	avrSerialxPrintf_P(&xSerialPort,PSTR("%c"), START_CHAR);
 	avrSerialxPrintf_P(&xSerialPort,PSTR("%c"), hexChar);
 }
+
+/*----------------------------------------------------------------------------
+ * Description:
+ * 		Sends a string to the LCD display.
+ *----------------------------------------------------------------------------*/
 
 static void sendString(char* message) {
 	avrSerialxPrintf_P(&xSerialPort,PSTR("%s"), message);
